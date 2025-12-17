@@ -1,27 +1,40 @@
 package main
 
-import "fmt"
+import "time"
+import (
+	"fmt"
+	"time"
+)
 
-func readInput() (float64, string, string) {
-	var amount float64
-	var from string
-	var to string
-	fmt.Print("Введите сумму: ")
-	fmt.Scanln(&amount)
-	fmt.Print("Введите исходную валюту: ")
-	fmt.Scanln(&from)
-	fmt.Print("Введите целевую валюту: ")
-	fmt.Scanln(&to)
-	return amount, from, to
+type Bin struct {
+	ID        string
+	Private   bool
+	CreatedAt time.Time
+	Name      string
 }
 
-func Convert(amount float64, from string, to string) float64 {
+type BinList struct {
+	Bins []Bin
+}
 
-	return 0
+func NewBin(id, name string, private bool) Bin {
+	return Bin{
+		ID:        id,
+		Name:      name,
+		Private:   private,
+		CreatedAt: time.Now(),
+	}
+}
+
+func (bl *BinList) Add(b Bin) {
+	bl.Bins = append(bl.Bins, b)
 }
 
 func main() {
-	amount, from, to := readInput()
-	result := Convert(amount, from, to)
-	fmt.Println(result)
+	list := BinList{}
+
+	bin := NewBin("1", "config.json", false)
+	list.Add(bin)
+
+	fmt.Println(list)
 }
