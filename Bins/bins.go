@@ -2,6 +2,11 @@ package bins
 
 import "time"
 
+type BinDl interface {
+	SaveBins(fileName string, list BinList) error
+	LoadBins(fileName string) (BinList, error)
+}
+
 type Bin struct {
 	ID        string
 	Private   bool

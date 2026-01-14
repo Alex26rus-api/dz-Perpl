@@ -15,7 +15,7 @@ func IsJson(name string) bool {
 	return false
 }
 
-func ReadFile(name string) ([]byte, error) {
+func Read(name string) ([]byte, error) {
 	data, err := os.ReadFile(name)
 	if err != nil {
 		return nil, err
@@ -23,7 +23,7 @@ func ReadFile(name string) ([]byte, error) {
 	return data, nil
 }
 
-func WriteFile(name string, data []byte) error {
+func Write(name string, data []byte) error {
 	file, err := os.Create(name)
 	if err != nil {
 		return err

@@ -10,7 +10,7 @@ func main() {
 	list := bins.BinList{}
 	bin := bins.NewBin("1", "config.json", false)
 	list.Add(bin)
-
+	var storage bins.BinDl = &storage.FileStorage{}
 	err := storage.SaveBins("bins.json", list)
 	if err != nil {
 		return
