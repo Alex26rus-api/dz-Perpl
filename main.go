@@ -1,39 +1,24 @@
 package main
 
 import (
+	bins "dz/app/Bins"
+	storage "dz/app/Storage"
 	"fmt"
-	"time"
 )
 
-type Bin struct {
-	ID        string
-	Private   bool
-	CreatedAt time.Time
-	Name      string
-}
-
-type BinList struct {
-	Bins []Bin
-}
-
-func NewBin(id, name string, private bool) Bin {
-	return Bin{
-		ID:        id,
-		Name:      name,
-		Private:   private,
-		CreatedAt: time.Now(),
-	}
-}
-
-func (bl *BinList) Add(bin Bin) {
-	bl.Bins = append(bl.Bins, bin)
-}
-
 func main() {
-	list := BinList{}
-
-	bin := NewBin("1", "config.json", false)
+	list := bins.BinList{}
+	bin := bins.NewBin("1", "config.json", false)
 	list.Add(bin)
+	var storage bins.BinDl = &storage.FileStorage{}
+	err := storage.SaveBins("bins.json", list)
+	if err != nil {
+		return
+	}
+	list, err = storage.LoadBins("bins.json")
+	if err != nil {
+		return
+	}
 
 	fmt.Println(list)
 }
